@@ -164,7 +164,7 @@ function App() {
           gutterBottom
           sx={{ color: "#005aa3" }}
         >
-          Mis 3 años Emily Ariade
+          Mis 3 años Emily Ariadne
         </Typography>
         <Typography
           variant="h6"
