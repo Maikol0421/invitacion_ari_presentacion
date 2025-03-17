@@ -19,7 +19,7 @@ function App() {
   const [adultNames, setAdultNames] = useState([]);
   const [childNames, setChildNames] = useState([]);
   const [submitAttempted, setSubmitAttempted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const handleAdultsChange = (event) => {
     const value = event.target.value;
     setNumAdults(value);
@@ -51,6 +51,14 @@ function App() {
     updated[index] = value;
     setChildNames(updated);
   };
+  const resetForm = () => {
+    setNumAdults("");
+    setNumChildren("");
+    setAdultNames([]);
+    setChildNames([]);
+    setSubmitAttempted(false);
+  };
+
 
   const handleSubmit = async () => {
     setSubmitAttempted(true);
@@ -99,30 +107,41 @@ function App() {
     };
 
     try {
-      setIsLoading(true)
-      const response = await fetch('https://controlgastosbackend-production.up.railway.app/api/invitation/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
+      setIsLoading(true);
+      const response = await fetch(
+        "https://controlgastosbackend-production.up.railway.app/api/invitation/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Error en el servidor');
+        throw new Error("Error en el servidor");
       }
 
       await response.json();
-      console.log(response.status)
-      MySwal.fire('Confirmado', 'Espera tus boletos para vivir esta aventura congelada pronto!!!', 'success');
-      setNumAdults(null)
-      setAdultNames(null)
+      console.log(response.status);
+      MySwal.fire(
+        "Confirmado",
+        "Espera tus boletos para vivir esta aventura congelada pronto!!!",
+        "success"
+      );
+      // Reiniciar controles a estado inicial
+      resetForm();
       console.log("Datos enviados:", data);
     } catch (error) {
       console.error(error);
-      MySwal.fire('Error', 'Hubo un problema al enviar la información', 'error');
+      MySwal.fire(
+        "Error",
+        "Hubo un problema al enviar la información",
+        "error"
+      );
     }
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   return (
@@ -225,8 +244,9 @@ function App() {
           fullWidth
           sx={{ marginTop: 2 }}
           onClick={handleSubmit}
+          disabled={isLoading}
         >
-          Confirmar Asistencia
+          {isLoading ? "Enviando confirmacion.." : "Confirmar Asistencia"}
         </Button>
       </Container>
     </Box>
