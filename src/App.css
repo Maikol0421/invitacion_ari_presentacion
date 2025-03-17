@@ -1,0 +1,12 @@
+/* src/App.css */
+.background {
+  min-height: 100vh;
+  width: auto;
+  background-image: url('fondo.jpg'); /* Actualiza esta ruta con la ubicación de tu imagen */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
