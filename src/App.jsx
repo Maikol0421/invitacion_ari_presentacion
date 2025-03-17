@@ -19,7 +19,7 @@ function App() {
   const [adultNames, setAdultNames] = useState([]);
   const [childNames, setChildNames] = useState([]);
   const [submitAttempted, setSubmitAttempted] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false)
   const handleAdultsChange = (event) => {
     const value = event.target.value;
     setNumAdults(value);
@@ -99,6 +99,7 @@ function App() {
     };
 
     try {
+      setIsLoading(true)
       const response = await fetch('https://controlgastosbackend-production.up.railway.app/api/invitation/create', {
         method: 'POST',
         headers: {
@@ -114,11 +115,14 @@ function App() {
       await response.json();
       console.log(response.status)
       MySwal.fire('Confirmado', 'Espera tus boletos para vivir esta aventura congelada pronto!!!', 'success');
+      setNumAdults(null)
+      setAdultNames(null)
       console.log("Datos enviados:", data);
     } catch (error) {
       console.error(error);
       MySwal.fire('Error', 'Hubo un problema al enviar la información', 'error');
     }
+    setIsLoading(false)
   };
 
   return (
