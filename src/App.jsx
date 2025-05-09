@@ -166,7 +166,17 @@ function App() {
         >
           Mis 3 años Emily Ariadne
         </Typography>
+
+
         <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ color: "#005aa3" }}
+        >
+          Muchas gracias por su confirmaciones.
+        </Typography>
+        {/* <Typography
           variant="h6"
           align="center"
           gutterBottom
@@ -247,7 +257,9 @@ function App() {
           disabled={isLoading}
         >
           {isLoading ? "Enviando confirmacion.." : "Confirmar Asistencia"}
-        </Button>
+        </Button> */}
+
+
       </Container>
     </Box>
   );
